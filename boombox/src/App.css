@@ -33,6 +33,7 @@ body {
   align-items: center;
 }
 
+
 /* 曲名・情報表示エリア */
 .music {
   background: #0d0d0d;
@@ -96,4 +97,23 @@ body {
   border-right: 4px solid #555;
   border-bottom: 4px solid #333;
   border-left: 4px solid #555;
+}
+/* 曲名スクロールアニメーション */
+@keyframes marquee {
+  0% {
+    transform: translateX(500px);
+  }
+  100% {
+    transform: translateX(-500px);
+  }
+}
+.music {
+  overflow: hidden;
+}
+
+.music p {
+  margin: 0;
+  white-space: nowrap;
+  animation: marquee 8s linear infinite;
+  display: inline-block; 
 }
