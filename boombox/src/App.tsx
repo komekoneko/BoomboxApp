@@ -1,10 +1,20 @@
 import './App.css'
-import { useState } from 'react'
+import { useState,useRef } from 'react'
 
 function App() {
 
   const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(new Audio('/2_23_AM.mp3'))
 
+const togglePlay = () => {
+  if(isPlaying) {
+    audioRef.current.pause();
+    setIsPlaying(false);
+  }else{
+    audioRef.current.play();
+    setIsPlaying(true);
+  }
+}
   return (
     <>
       <div className='boombox'>
@@ -15,7 +25,7 @@ function App() {
         <div className='music'></div>
         <div className='button'>
           {/* 再生・停止ボタン */}
-          <button onClick={() => setIsPlaying(!isPlaying)}>{ isPlaying ? "⏸": "▶" }</button>
+          <button onClick={togglePlay}>{ isPlaying ? "⏸": "▶" }</button>
         </div>
       </div>
     </>
