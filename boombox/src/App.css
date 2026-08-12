@@ -137,22 +137,24 @@ body {
 
 @keyframes marquee {
   0% {
-    transform: translateX(500px);
+    transform: translateX(340px);
   }
   100% {
-    transform: translateX(-500px);
+    transform: translateX(-340px);
   }
 }
 
 .music p {
-  margin: 0;
   white-space: nowrap;
   display: inline-block;
-  animation: marquee 12s linear infinite;
+  margin: 0 auto;
   color: #7de3c3;
   text-shadow:
     0 0 6px rgba(125, 227, 195, 0.75),
     0 0 18px rgba(125, 227, 195, 0.4);
+}
+.music p.playing {
+  animation: marquee 12s linear infinite;
 }
 
 /* ===== ボタン ===== */

@@ -94,7 +94,7 @@ function App() {
           </div>
 
           <div className="music">
-            <p>{track[currentIndex].title}</p>
+            <p className={isPlaying? "playing" : ""}>{track[currentIndex].title}</p>
           </div>
 
           <div className="button">
