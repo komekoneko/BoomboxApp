@@ -86,30 +86,32 @@ function App() {
   };
   return (
     <>
-      <div className="boombox">
-        <div className="caset">
-          <div className={`reel ${isPlaying ? "playing" : ""}`}></div>
-          <div className={`reel ${isPlaying ? "playing" : ""}`}></div>
+      <div className="bg-layer"></div>
+        <div className="boombox">
+          <div className="caset">
+            <div className={`reel ${isPlaying ? "playing" : ""}`}></div>
+            <div className={`reel ${isPlaying ? "playing" : ""}`}></div>
+          </div>
+
+          <div className="music">
+            <p>{track[currentIndex].title}</p>
+          </div>
+
+          <div className="button">
+            {/* 再生・停止ボタン */}
+            <button onClick={prevTrack}>◀◀</button>
+            <button onClick={togglePlay}>{isPlaying ? "⏸" : "▶"}</button>
+            <button onClick={nextTrack}>▶▶</button>
+          </div>
         </div>
 
-        <div className="music">
-          <p>{track[currentIndex].title}</p>
+        <div className="content">
+          <p>{track[currentIndex].content.projectName}</p>
+          <p>{track[currentIndex].content.description}</p>
+          <a href={track[currentIndex].content.url} target="_blank">
+            デモを見る
+          </a>
         </div>
-
-        <div className="button">
-          {/* 再生・停止ボタン */}
-          <button onClick={prevTrack}>◀◀</button>
-          <button onClick={togglePlay}>{isPlaying ? "⏸" : "▶"}</button>
-          <button onClick={nextTrack}>▶▶</button>
-        </div>
-      </div>
-
-      <div className="content">
-        <p>{track[currentIndex].content.projectName}</p>
-        <p>{track[currentIndex].content.description}</p>
-        <a href= {track[currentIndex].content.url} target="_blank">デモを見る</a>
-        
-      </div>
     </>
   );
 }
