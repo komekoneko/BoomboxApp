@@ -32,7 +32,7 @@ function App() {
   // 前の曲に戻る
   const prevTrack = () => {
     audioRef.current.pause();
-    const prevIndex = currentIndex === 0 ? 0 : currentIndex - 1;
+    const prevIndex = currentIndex === 0 ? track.length - 1 : currentIndex - 1;
     setCurrentIndex(prevIndex);
     audioRef.current.src = track[prevIndex].src;
     if (isPlaying) {
