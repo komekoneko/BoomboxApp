@@ -105,8 +105,8 @@ function App() {
       </div>
 
       <div className="content">
-        <p>{track[currentIndex].content.description}</p>
         <p>{track[currentIndex].content.projectName}</p>
+        <p>{track[currentIndex].content.description}</p>
         <a href= {track[currentIndex].content.url} target="_blank">デモを見る</a>
         
       </div>

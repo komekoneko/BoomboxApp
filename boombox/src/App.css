@@ -117,3 +117,46 @@ body {
   animation: marquee 8s linear infinite;
   display: inline-block; 
 }
+
+/* コンテンツエリア */
+.content {
+  width: 600px;
+  margin: 16px auto 0;
+  padding: 20px 24px;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 12px;
+  color: #c8a96e;
+  font-family: "Courier New", monospace;
+}
+
+.content p {
+  margin: 0 0 8px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #aaa;
+}
+
+.content p:first-child {
+  font-size: 18px;
+  font-weight: bold;
+  color: #c8a96e;
+  margin-bottom: 12px;
+}
+
+.content a {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 6px 14px;
+  border: 1px solid #c8a96e;
+  border-radius: 4px;
+  color: #c8a96e;
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+.content a:hover {
+  background: #c8a96e;
+  color: #1a1a1a;
+}
