@@ -87,6 +87,7 @@ function App() {
   return (
     <>
       <div className="bg-layer"></div>
+      <div className={`noise ${isPlaying ? "playing" : ""}`}></div>
         <div className="boombox">
           <div className="caset">
             <div className={`reel ${isPlaying ? "playing" : ""}`}></div>
