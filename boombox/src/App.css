@@ -160,3 +160,44 @@ body {
   background: #c8a96e;
   color: #1a1a1a;
 }
+
+/* ボタン共通 */
+.button button {
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #3a3a3a, #222);
+  color: #c8a96e;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow:
+    3px 3px 6px rgba(0, 0, 0, 0.6),
+    -1px -1px 3px rgba(255, 255, 255, 0.05);
+  transition: all 0.1s ease;
+}
+ 
+.button button:hover {
+  background: linear-gradient(145deg, #444, #2a2a2a);
+  color: #e0c080;
+}
+ 
+.button button:active {
+  box-shadow:
+    inset 2px 2px 4px rgba(0, 0, 0, 0.6),
+    inset -1px -1px 2px rgba(255, 255, 255, 0.05);
+  transform: scale(0.96);
+}
+ 
+/* 再生・停止ボタンだけ少し大きく */
+.button button:nth-child(2) {
+  width: 60px;
+  height: 60px;
+  font-size: 18px;
+  background: linear-gradient(145deg, #c8a96e, #a07840);
+  color: #1a1a1a;
+}
+ 
+.button button:nth-child(2):hover {
+  background: linear-gradient(145deg, #e0c080, #b08850);
+}
