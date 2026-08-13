@@ -1,9 +1,11 @@
-import { useState, useRef, useEffect} from "react";
+import { useState, useRef, useEffect } from "react";
 import "./App.css";
 
 function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [volume, setVolume] = useState(0.5);
+
   const audioRef = useRef<HTMLAudioElement>(
     new Audio("/blackbox-black-box-chill-2short-form-bgm-486308.mp3"),
   );
@@ -88,6 +90,7 @@ function App() {
   //自動で次の曲に進む
   useEffect(() => {
     const audio = audioRef.current;
+    audioRef.current.volume = volume;
 
     const handleEnded = () => {
       nextTrack();
@@ -101,6 +104,13 @@ function App() {
 
     return removeFn;
   }, [currentIndex, isPlaying]);
+
+  //音量調整バーの設定
+  const volumeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newVolume = Number(e.target.value);
+    setVolume(newVolume);
+    audioRef.current.volume = newVolume;
+  };
 
   return (
     <>
@@ -123,6 +133,17 @@ function App() {
           <button onClick={prevTrack}>◀◀</button>
           <button onClick={togglePlay}>{isPlaying ? "⏸" : "▶"}</button>
           <button onClick={nextTrack}>▶▶</button>
+        </div>
+
+        <div className="volume">
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={volume}
+            onChange={(e) => volumeHandler(e)}
+          />
         </div>
       </div>
 
