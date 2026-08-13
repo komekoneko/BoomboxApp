@@ -1,10 +1,12 @@
+import { useState, useRef, useEffect} from "react";
 import "./App.css";
-import { useState, useRef } from "react";
 
 function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const audioRef = useRef<HTMLAudioElement>(new Audio("/blackbox-black-box-chill-2short-form-bgm-486308.mp3"));
+  const audioRef = useRef<HTMLAudioElement>(
+    new Audio("/blackbox-black-box-chill-2short-form-bgm-486308.mp3"),
+  );
 
   type Track = {
     id: number;
@@ -59,7 +61,6 @@ function App() {
     audioRef.current.src = track[prevIndex].src;
     if (isPlaying) {
       audioRef.current.play();
-      setIsPlaying(true);
     }
   };
   // 次の曲に映る
@@ -70,7 +71,6 @@ function App() {
     audioRef.current.src = track[nextIndex].src;
     if (isPlaying) {
       audioRef.current.play();
-      setIsPlaying(true);
     }
   };
 
@@ -84,35 +84,55 @@ function App() {
       setIsPlaying(true);
     }
   };
+
+  //自動で次の曲に進む
+  useEffect(() => {
+    const audio = audioRef.current;
+
+    const handleEnded = () => {
+      nextTrack();
+    };
+
+    audio.addEventListener("ended", handleEnded);
+
+    const removeFn = () => {
+      audio.removeEventListener("ended", handleEnded);
+    };
+
+    return removeFn;
+  }, [currentIndex, isPlaying]);
+
   return (
     <>
       <div className="bg-layer"></div>
       <div className={`noise ${isPlaying ? "playing" : ""}`}></div>
-        <div className="boombox">
-          <div className="caset">
-            <div className={`reel ${isPlaying ? "playing" : ""}`}></div>
-            <div className={`reel ${isPlaying ? "playing" : ""}`}></div>
-          </div>
-
-          <div className="music">
-            <p className={isPlaying? "playing" : ""}>{track[currentIndex].title}</p>
-          </div>
-
-          <div className="button">
-            {/* 再生・停止ボタン */}
-            <button onClick={prevTrack}>◀◀</button>
-            <button onClick={togglePlay}>{isPlaying ? "⏸" : "▶"}</button>
-            <button onClick={nextTrack}>▶▶</button>
-          </div>
+      <div className="boombox">
+        <div className="caset">
+          <div className={`reel ${isPlaying ? "playing" : ""}`}></div>
+          <div className={`reel ${isPlaying ? "playing" : ""}`}></div>
         </div>
 
-        <div className="content">
-          <p>{track[currentIndex].content.projectName}</p>
-          <p>{track[currentIndex].content.description}</p>
-          <a href={track[currentIndex].content.url} target="_blank">
-            デモを見る
-          </a>
+        <div className="music">
+          <p className={isPlaying ? "playing" : ""}>
+            {track[currentIndex].title}
+          </p>
         </div>
+
+        <div className="button">
+          {/* 再生・停止ボタン */}
+          <button onClick={prevTrack}>◀◀</button>
+          <button onClick={togglePlay}>{isPlaying ? "⏸" : "▶"}</button>
+          <button onClick={nextTrack}>▶▶</button>
+        </div>
+      </div>
+
+      <div className="content">
+        <p>{track[currentIndex].content.projectName}</p>
+        <p>{track[currentIndex].content.description}</p>
+        <a href={track[currentIndex].content.url} target="_blank">
+          デモを見る
+        </a>
+      </div>
     </>
   );
 }
