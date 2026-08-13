@@ -137,10 +137,10 @@ body {
 
 @keyframes marquee {
   0% {
-    transform: translateX(340px);
+    transform: translateX(420px);
   }
   100% {
-    transform: translateX(-340px);
+    transform: translateX(-420px);
   }
 }
 

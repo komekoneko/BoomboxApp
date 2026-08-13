@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const audioRef = useRef<HTMLAudioElement>(new Audio("/2_23_AM.mp3"));
+  const audioRef = useRef<HTMLAudioElement>(new Audio("/blackbox-black-box-chill-2short-form-bgm-486308.mp3"));
 
   type Track = {
     id: number;
@@ -20,8 +20,8 @@ function App() {
   const track: Track[] = [
     {
       id: 1,
-      title: "2_23_AM",
-      src: "/2_23_AM.mp3",
+      title: "BLACK BOX - Chill 2",
+      src: "/blackbox-black-box-chill-2short-form-bgm-486308.mp3",
       content: {
         projectName: "温泉TodoApp",
         description: "TodoAppの温泉・銭湯に特化したバージョンです",
@@ -30,8 +30,8 @@ function App() {
     },
     {
       id: 2,
-      title: "週末京都現実逃避",
-      src: "週末京都現実逃避.mp3",
+      title: "364 Imaginary Art Museum",
+      src: "/tooone-364-imaginary-art-museum-537413.mp3",
       content: {
         projectName: "Githubユーザー検索App",
         description: "Githubユーザーの詳しい情報を知ることができます",
@@ -40,8 +40,8 @@ function App() {
     },
     {
       id: 3,
-      title: "全てが終わる夜に",
-      src: "全てが終わる夜に.mp3",
+      title: "Lofi — Night Haze",
+      src: "/ornave-lofi-night-haze-553402.mp3",
       content: {
         projectName: "BudgetApp",
         description:
