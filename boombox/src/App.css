@@ -8,7 +8,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   min-height: 100vh;
   padding: 40px 16px;
   overflow-x: hidden;
@@ -52,6 +52,9 @@ body {
   z-index: 1;
   width: 100%;
   max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
   background: linear-gradient(160deg, rgba(22, 22, 31, 0.92) 0%, rgba(14, 14, 21, 0.92) 100%);
   backdrop-filter: blur(4px);
   border-radius: 20px;
@@ -139,10 +142,10 @@ body {
 
 @keyframes marquee {
   0% {
-    transform: translateX(420px);
+    transform: translateX(400px);
   }
   100% {
-    transform: translateX(-420px);
+    transform: translateX(-400px);
   }
 }
 
@@ -157,7 +160,7 @@ body {
 }
 
 .music p.playing {
-  animation: marquee 12s linear infinite;
+  animation: marquee 10s linear infinite;
 }
 
 /* ===== ボタン ===== */
@@ -227,7 +230,10 @@ body {
   z-index: 1;
   width: 100%;
   max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 20px;
+  box-sizing: border-box;
   padding: 24px 28px;
   background: linear-gradient(160deg, rgba(22, 22, 31, 0.88), rgba(14, 14, 21, 0.88));
   backdrop-filter: blur(4px);
@@ -244,6 +250,7 @@ body {
   font-size: 14px;
   line-height: 1.7;
   color: #9a94b8;
+  word-break: break-word;
 }
 
 .content p:first-child {
@@ -334,25 +341,21 @@ body::before {
     padding: 24px 12px;
   }
 
-  /* ラジカセ */
   .boombox {
     padding: 16px;
     border-radius: 16px;
   }
 
-  /* カセット窓を低く */
   .caset {
     height: 120px;
   }
 
-  /* リールを小さく */
   .reel {
     width: 72px;
     height: 72px;
     border-width: 2px;
   }
 
-  /* 曲名エリア */
   .music {
     height: 42px;
     font-size: 13px;
@@ -360,17 +363,15 @@ body::before {
     margin-bottom: 16px;
   }
 
-  /* スクロール距離を画面幅に合わせて短く */
   @keyframes marquee {
     0% {
-      transform: translateX(220px);
+      transform: translateX(200px);
     }
     100% {
-      transform: translateX(-220px);
+      transform: translateX(-200px);
     }
   }
 
-  /* ボタン */
   .button {
     gap: 14px;
   }
@@ -387,7 +388,6 @@ body::before {
     font-size: 16px;
   }
 
-  /* コンテンツ */
   .content {
     padding: 20px 18px;
     margin-top: 16px;
