@@ -491,3 +491,68 @@ body::before {
     width: 130px;
   }
 }
+/* ===== トラックリスト ===== */
+.tracklist {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.tracklist button {
+  padding: 10px 18px;
+  border: 1px solid rgba(150, 120, 220, 0.28);
+  border-radius: 8px;
+  background: linear-gradient(160deg, rgba(22, 22, 31, 0.88), rgba(14, 14, 21, 0.88));
+  backdrop-filter: blur(4px);
+  color: #9a94b8;
+  font-family: "Courier New", monospace;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+}
+
+.tracklist button:hover {
+  color: #d9c9ff;
+  border-color: rgba(180, 150, 255, 0.5);
+  box-shadow:
+    0 0 16px rgba(140, 90, 220, 0.3),
+    3px 3px 10px rgba(0, 0, 0, 0.5);
+}
+
+.tracklist button:focus {
+  outline: none;
+}
+
+/* 選択中のトラック */
+.tracklist button.active {
+  color: #e8dcff;
+  border-color: rgba(180, 150, 255, 0.6);
+  background: linear-gradient(160deg, rgba(90, 61, 153, 0.5), rgba(52, 32, 94, 0.5));
+  box-shadow:
+    0 0 20px rgba(140, 90, 220, 0.45),
+    3px 3px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* スマホ */
+@media (max-width: 640px) {
+  .tracklist {
+    margin-top: 16px;
+    gap: 8px;
+  }
+
+  .tracklist button {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+}

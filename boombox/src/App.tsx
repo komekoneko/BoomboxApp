@@ -83,7 +83,7 @@ function App() {
       audioRef.current.play();
     }
   };
-  // 次の曲に映る
+  // 次の曲に移る
   const nextTrack = () => {
     audioRef.current.pause();
     const nextIndex = currentIndex === track.length - 1 ? 0 : currentIndex + 1;
@@ -130,6 +130,16 @@ function App() {
     audioRef.current.volume = newVolume;
   };
 
+  //曲一覧の表示
+  const selectTrack = (index: number) => {
+    audioRef.current.pause();
+    setCurrentIndex(index);
+    audioRef.current.src = track[index].src;
+    if(isPlaying) {
+      audioRef.current.play();
+    }
+  }
+
   return (
     <>
       <div className="bg-layer"></div>
@@ -165,6 +175,16 @@ function App() {
             onChange={(e) => volumeHandler(e)}
           />
         </div>
+      </div>
+
+      <div className="tracklist">
+          {track.map((i, index) => (
+            <button 
+            key={i.id}
+            className= {index === currentIndex? "active": ""}
+            onClick={()=> selectTrack(index)}
+            >{i.content.projectName}</button>
+          ))}
       </div>
 
       <div className="content">
