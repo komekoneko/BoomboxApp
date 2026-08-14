@@ -23,6 +23,16 @@ function App() {
 
   const track: Track[] = [
     {
+      id: 0,
+      title: "2_23_AM",
+      src: "/2_23_AM.mp3",
+      content: {
+        projectName: "Kai/大学3年",
+        description: "フロントエンドエンジニア志望、最近はUIUXにも興味を持っています。よく使う言語→ JavaScript, TypeScript 資格→ 基本情報技術者",
+        url: "https://github.com/komekoneko"
+      }
+    },
+    {
       id: 1,
       title: "BLACK BOX - Chill 2",
       src: "/blackbox-black-box-chill-2short-form-bgm-486308.mp3",
