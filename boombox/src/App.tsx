@@ -18,6 +18,7 @@ function App() {
       projectName: string;
       description: string;
       url: string;
+      linkText: string
     };
   };
 
@@ -28,9 +29,12 @@ function App() {
       src: "/2_23_AM.mp3",
       content: {
         projectName: "Kai/大学3年",
-        description: "フロントエンドエンジニア志望、最近はUIUXにも興味を持っています。よく使う言語→ JavaScript, TypeScript 資格→ 基本情報技術者",
-        url: "https://github.com/komekoneko"
-      }
+        description:
+          "フロントエンドエンジニア志望、最近はUIUXにも興味を持っています。よく使う言語→ JavaScript, TypeScript 資格→ 基本情報技術者",
+        url: "https://github.com/komekoneko",
+        linkText: "GitHubを見る"
+
+      },
     },
     {
       id: 1,
@@ -40,6 +44,7 @@ function App() {
         projectName: "温泉TodoApp",
         description: "TodoAppの温泉・銭湯に特化したバージョンです",
         url: "https://onsen-sento-app.vercel.app/",
+        linkText: "デモを見る"
       },
     },
     {
@@ -50,6 +55,7 @@ function App() {
         projectName: "Githubユーザー検索App",
         description: "Githubユーザーの詳しい情報を知ることができます",
         url: "https://github-user-search-one-red.vercel.app/",
+        linkText: "デモを見る"
       },
     },
     {
@@ -61,6 +67,8 @@ function App() {
         description:
           "TodoAppに自動計算機能を加え、会計金額が事前にわかるようにしました",
         url: "https://budget-book-vert-six.vercel.app/",
+        linkText: "デモを見る"
+
       },
     },
   ];
@@ -145,7 +153,9 @@ function App() {
           <button onClick={nextTrack}>▶▶</button>
         </div>
 
+        {/* 音量バー */}
         <div className="volume">
+          <span className="volume-icon">🔈</span>
           <input
             type="range"
             min="0"
@@ -161,7 +171,7 @@ function App() {
         <p>{track[currentIndex].content.projectName}</p>
         <p>{track[currentIndex].content.description}</p>
         <a href={track[currentIndex].content.url} target="_blank">
-          デモを見る
+          {track[currentIndex].content.linkText}
         </a>
       </div>
     </>
