@@ -124,7 +124,7 @@ function App() {
     const handleLoadedMetadata = () => {
       setDuration(audio.duration);
     };
-
+    //繰り返しを防ぐために追加
     const removeFn = () => {
       audio.removeEventListener("ended", handleEnded);
       audio.removeEventListener("timeupdate", handleTimeUpdate);
@@ -152,12 +152,19 @@ function App() {
       audioRef.current.play();
     }
   };
-
+  //現在の再生時間の測定と反映
   const timeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nowTime = Number(e.target.value);
     setCurrentTime(nowTime);
     audioRef.current.currentTime = nowTime;
   };
+  //時間表示
+  const formatTime = (time: number) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    const tm = `${String(minutes)}:${String(seconds).padStart(2, "0")}`
+    return tm;
+  }
 
   return (
     <>
@@ -174,9 +181,10 @@ function App() {
             {track[currentIndex].title}
           </p>
         </div>
-        
+
         {/* タイムバー */}
         <div className="seek">
+          <span className="time">{formatTime(currentTime)}</span>
           <input
             type="range"
             min="0"
@@ -185,6 +193,8 @@ function App() {
             value={currentTime}
             onChange={(e) => timeHandler(e)}
           />
+          <span className="time">{formatTime(duration)}</span>
+
         </div>
 
         <div className="button">
@@ -197,7 +207,7 @@ function App() {
 
         {/* 音量バー */}
         <div className="volume">
-          <span className="volume-icon">🔈</span>
+          <span className="volume-icon">VOL</span>
           <input
             type="range"
             min="0"
@@ -208,7 +218,7 @@ function App() {
           />
         </div>
       </div>
-
+      {/* トラックリスト */}
       <div className="tracklist">
         {track.map((i, index) => (
           <button
