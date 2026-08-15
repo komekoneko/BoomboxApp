@@ -2,8 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import { track } from "./data/track";
 import Content from "./component/Content";
 import TrackList from "./component/TrackList";
+import Boombox from "./component/Boombox";
 import "./App.css";
-
 
 function App() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -11,8 +11,6 @@ function App() {
   const [volume, setVolume] = useState(0.5);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-
-
 
   const audioRef = useRef<HTMLAudioElement>(new Audio(track[0].src));
 
@@ -101,73 +99,34 @@ function App() {
     setCurrentTime(nowTime);
     audioRef.current.currentTime = nowTime;
   };
-  //時間表示
-  const formatTime = (time: number) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    const tm = `${String(minutes)}:${String(seconds).padStart(2, "0")}`;
-    return tm;
-  };
 
   return (
     <>
       <div className="bg-layer"></div>
       <div className={`noise ${isPlaying ? "playing" : ""}`}></div>
-      <div className="boombox">
-        <div className="caset">
-          <div className={`reel ${isPlaying ? "playing" : ""}`}></div>
-          <div className={`reel ${isPlaying ? "playing" : ""}`}></div>
-        </div>
 
-        <div className="music">
-          <p className={isPlaying ? "playing" : ""}>
-            {track[currentIndex].title}
-          </p>
-        </div>
+      {/* ラジカセ部分の表示 */}
+      <Boombox
+        isPlaying={isPlaying}
+        title={track[currentIndex].title}
+        currentTime={currentTime}
+        duration={duration}
+        volume={volume}
+        onPrev={prevTrack}
+        onNext={nextTrack}
+        onToggle={togglePlay}
+        onSeek={timeHandler}
+        onVolumeChange={volumeHandler}
+      />
 
-        {/* タイムバー */}
-        <div className="seek">
-          <span className="time">{formatTime(currentTime)}</span>
-          <input
-            type="range"
-            min="0"
-            max={duration}
-            step="0.1"
-            value={currentTime}
-            onChange={(e) => timeHandler(e)}
-          />
-          <span className="time">{formatTime(duration)}</span>
-        </div>
-
-        <div className="button">
-          {/* 再生・停止ボタン */}
-          <button onClick={prevTrack}>◀◀</button>
-          <button onClick={togglePlay}>{isPlaying ? "⏸" : "▶"}</button>
-          <button onClick={nextTrack}>▶▶</button>
-        </div>
-
-        {/* 音量バー */}
-        <div className="volume">
-          <span className="volume-icon">VOL</span>
-          <input
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-            value={volume}
-            onChange={(e) => volumeHandler(e)}
-          />
-        </div>
-      </div>
-
-      
-        <TrackList
-          tracks={track}
-          currentIndex={currentIndex}
-          onSelect={selectTrack}
-        />
-        <Content content={track[currentIndex].content} />
-      
+      {/* トラックリストの表示 */}
+      <TrackList
+        tracks={track}
+        currentIndex={currentIndex}
+        onSelect={selectTrack}
+      />
+      {/* ポートフォリオ部分の表示 */}
+      <Content content={track[currentIndex].content} />
     </>
   );
 }
