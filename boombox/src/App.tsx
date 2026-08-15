@@ -5,6 +5,8 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [volume, setVolume] = useState(0.5);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
 
   const audioRef = useRef<HTMLAudioElement>(
     new Audio("/blackbox-black-box-chill-2short-form-bgm-486308.mp3"),
@@ -18,22 +20,21 @@ function App() {
       projectName: string;
       description: string;
       url: string;
-      linkText: string
+      linkText: string;
     };
   };
 
   const track: Track[] = [
     {
       id: 0,
-      title: "2_23_AM",
+      title: "About Me",
       src: "/2_23_AM.mp3",
       content: {
         projectName: "Kai/大学3年",
         description:
           "フロントエンドエンジニア志望、最近はUIUXにも興味を持っています。よく使う言語→ JavaScript, TypeScript 資格→ 基本情報技術者",
         url: "https://github.com/komekoneko",
-        linkText: "GitHubを見る"
-
+        linkText: "GitHubを見る",
       },
     },
     {
@@ -44,7 +45,7 @@ function App() {
         projectName: "温泉TodoApp",
         description: "TodoAppの温泉・銭湯に特化したバージョンです",
         url: "https://onsen-sento-app.vercel.app/",
-        linkText: "デモを見る"
+        linkText: "デモを見る",
       },
     },
     {
@@ -55,7 +56,7 @@ function App() {
         projectName: "Githubユーザー検索App",
         description: "Githubユーザーの詳しい情報を知ることができます",
         url: "https://github-user-search-one-red.vercel.app/",
-        linkText: "デモを見る"
+        linkText: "デモを見る",
       },
     },
     {
@@ -67,8 +68,7 @@ function App() {
         description:
           "TodoAppに自動計算機能を加え、会計金額が事前にわかるようにしました",
         url: "https://budget-book-vert-six.vercel.app/",
-        linkText: "デモを見る"
-
+        linkText: "デモを見る",
       },
     },
   ];
@@ -113,12 +113,25 @@ function App() {
     const handleEnded = () => {
       nextTrack();
     };
+    const handleTimeUpdate = () => {
+      setCurrentTime(audio.currentTime);
+    };
 
     audio.addEventListener("ended", handleEnded);
+    audio.addEventListener("timeupdate", handleTimeUpdate);
+
+    //曲の長さを取得
+    const handleLoadedMetadata = () => {
+      setDuration(audio.duration);
+    };
 
     const removeFn = () => {
       audio.removeEventListener("ended", handleEnded);
+      audio.removeEventListener("timeupdate", handleTimeUpdate);
+      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
     };
+
+    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
 
     return removeFn;
   }, [currentIndex, isPlaying]);
@@ -135,10 +148,16 @@ function App() {
     audioRef.current.pause();
     setCurrentIndex(index);
     audioRef.current.src = track[index].src;
-    if(isPlaying) {
+    if (isPlaying) {
       audioRef.current.play();
     }
-  }
+  };
+
+  const timeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const nowTime = Number(e.target.value);
+    setCurrentTime(nowTime);
+    audioRef.current.currentTime = nowTime;
+  };
 
   return (
     <>
@@ -155,6 +174,18 @@ function App() {
             {track[currentIndex].title}
           </p>
         </div>
+        
+        {/* タイムバー */}
+        <div className="seek">
+          <input
+            type="range"
+            min="0"
+            max={duration}
+            step="0.1"
+            value={currentTime}
+            onChange={(e) => timeHandler(e)}
+          />
+        </div>
 
         <div className="button">
           {/* 再生・停止ボタン */}
@@ -162,6 +193,7 @@ function App() {
           <button onClick={togglePlay}>{isPlaying ? "⏸" : "▶"}</button>
           <button onClick={nextTrack}>▶▶</button>
         </div>
+
 
         {/* 音量バー */}
         <div className="volume">
@@ -178,13 +210,15 @@ function App() {
       </div>
 
       <div className="tracklist">
-          {track.map((i, index) => (
-            <button 
+        {track.map((i, index) => (
+          <button
             key={i.id}
-            className= {index === currentIndex? "active": ""}
-            onClick={()=> selectTrack(index)}
-            >{i.content.projectName}</button>
-          ))}
+            className={index === currentIndex ? "active" : ""}
+            onClick={() => selectTrack(index)}
+          >
+            {i.content.projectName}
+          </button>
+        ))}
       </div>
 
       <div className="content">
