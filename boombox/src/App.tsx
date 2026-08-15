@@ -1,5 +1,9 @@
 import { useState, useRef, useEffect } from "react";
+import { track } from "./data/track";
+import Content from "./component/Content";
+import TrackList from "./component/TrackList";
 import "./App.css";
+
 
 function App() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -8,65 +12,7 @@ function App() {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
-  type Track = {
-    id: number;
-    title: string;
-    src: string;
-    content: {
-      projectName: string;
-      description: string;
-      url: string;
-      linkText: string;
-    };
-  };
-  const track: Track[] = [
-    {
-      id: 0,
-      title: "About Me",
-      src: "/2_23_AM.mp3",
-      content: {
-        projectName: "Kai/大学3年",
-        description:
-          "フロントエンドエンジニア志望、最近はUIUXにも興味を持っています。よく使う言語→ JavaScript, TypeScript 資格→ 基本情報技術者",
-        url: "https://github.com/komekoneko",
-        linkText: "GitHubを見る",
-      },
-    },
-    {
-      id: 1,
-      title: "BLACK BOX - Chill 2",
-      src: "/blackbox-black-box-chill-2short-form-bgm-486308.mp3",
-      content: {
-        projectName: "温泉TodoApp",
-        description: "TodoAppの温泉・銭湯に特化したバージョンです",
-        url: "https://onsen-sento-app.vercel.app/",
-        linkText: "デモを見る",
-      },
-    },
-    {
-      id: 2,
-      title: "364 Imaginary Art Museum",
-      src: "/tooone-364-imaginary-art-museum-537413.mp3",
-      content: {
-        projectName: "Githubユーザー検索App",
-        description: "Githubユーザーの詳しい情報を知ることができます",
-        url: "https://github-user-search-one-red.vercel.app/",
-        linkText: "デモを見る",
-      },
-    },
-    {
-      id: 3,
-      title: "Lofi — Night Haze",
-      src: "/ornave-lofi-night-haze-553402.mp3",
-      content: {
-        projectName: "BudgetApp",
-        description:
-          "TodoAppに自動計算機能を加え、会計金額が事前にわかるようにしました",
-        url: "https://budget-book-vert-six.vercel.app/",
-        linkText: "デモを見る",
-      },
-    },
-  ];
+
 
   const audioRef = useRef<HTMLAudioElement>(new Audio(track[0].src));
 
@@ -213,26 +159,15 @@ function App() {
           />
         </div>
       </div>
-      {/* トラックリスト */}
-      <div className="tracklist">
-        {track.map((i, index) => (
-          <button
-            key={i.id}
-            className={index === currentIndex ? "active" : ""}
-            onClick={() => selectTrack(index)}
-          >
-            {i.content.projectName}
-          </button>
-        ))}
-      </div>
 
-      <div className="content">
-        <p>{track[currentIndex].content.projectName}</p>
-        <p>{track[currentIndex].content.description}</p>
-        <a href={track[currentIndex].content.url} target="_blank">
-          {track[currentIndex].content.linkText}
-        </a>
-      </div>
+      
+        <TrackList
+          tracks={track}
+          currentIndex={currentIndex}
+          onSelect={selectTrack}
+        />
+        <Content content={track[currentIndex].content} />
+      
     </>
   );
 }
