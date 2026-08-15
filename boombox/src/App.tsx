@@ -8,10 +8,6 @@ function App() {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
-  const audioRef = useRef<HTMLAudioElement>(
-    new Audio("/blackbox-black-box-chill-2short-form-bgm-486308.mp3"),
-  );
-
   type Track = {
     id: number;
     title: string;
@@ -23,7 +19,6 @@ function App() {
       linkText: string;
     };
   };
-
   const track: Track[] = [
     {
       id: 0,
@@ -72,6 +67,8 @@ function App() {
       },
     },
   ];
+
+  const audioRef = useRef<HTMLAudioElement>(new Audio(track[0].src));
 
   // 前の曲に戻る
   const prevTrack = () => {
@@ -162,9 +159,9 @@ function App() {
   const formatTime = (time: number) => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
-    const tm = `${String(minutes)}:${String(seconds).padStart(2, "0")}`
+    const tm = `${String(minutes)}:${String(seconds).padStart(2, "0")}`;
     return tm;
-  }
+  };
 
   return (
     <>
@@ -194,7 +191,6 @@ function App() {
             onChange={(e) => timeHandler(e)}
           />
           <span className="time">{formatTime(duration)}</span>
-
         </div>
 
         <div className="button">
@@ -203,7 +199,6 @@ function App() {
           <button onClick={togglePlay}>{isPlaying ? "⏸" : "▶"}</button>
           <button onClick={nextTrack}>▶▶</button>
         </div>
-
 
         {/* 音量バー */}
         <div className="volume">
